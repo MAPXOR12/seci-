@@ -1,11 +1,4 @@
-let count = 0;
-setInterval(
-  () =>
-    require("node-fetch")(process.env.URL).then(() =>
-      console.log(`[${++count}] here i pinged ${process.env.URL}`)
-    ),
-  300000
-);
+
 
 const { Client, MessageEmbed } = require("discord.js");
 var { Util } = require("discord.js");
@@ -38,7 +31,7 @@ const Enmap = require("enmap");
 const cooldown = new Set();
 const cdtime = 5;
 const prefix = "b!"
-client.login(process.env.TOKEN)
+client.login("")
 let channelc = JSON.parse(fs.readFileSync('./channelc.json' , 'utf8'));
 let channeld = JSON.parse(fs.readFileSync('./channeld.json' , 'utf8'));
 let antiban = JSON.parse(fs.readFileSync('./antiban.json' , 'utf8'));
