@@ -940,6 +940,7 @@ client.on("message", message => {
       .addField(
         "Role Delete Limit Info",
         `
+ Togles: ${antiroleC[message.guild.id].onoff}
 **• | Count : __\`${config[message.guild.id].roleDelLimit} \`__**
 `
       )
