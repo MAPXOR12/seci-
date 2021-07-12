@@ -916,57 +916,6 @@ client.on("guildKickAdd", async (guild, user) => {
   });
 });
 
-client.on("message", message => {
-  if (message.author.bot) return;
-  if (!message.guild) return;
-  if (message.content.startsWith(prefix + "settings")) {
-  if (message.author.id !== message.guild.ownerID) return message.reply("Just For Owner ship")
-    var blackjack = new Discord.MessageEmbed()
-      .setAuthor(message.author.tag, message.author.avatarURL())
-      .setTitle(`**__${message.guild.name}__ , Server Settings**`)
-
-      .addField(
-        "Ban Limit Info",
-        `
-**• | Count : __\`${config[message.guild.id].banLimit} \`__**
-`
-      )
-      .addField(
-        "Kick Limit Info",
-        `
-**• | Count : __\`${config[message.guild.id].kickLimits} \`__**
-`
-      )
-      .addField(
-        "Role Delete Limit Info",
-        `
- Togles: ${antiroleC[message.guild.id].onoff}
-**• | Count : __\`${config[message.guild.id].roleDelLimit} \`__**
-`
-      )
-
-      .addField(
-        "Role Create Limit Info",
-        `
-**• | Count : __\`${config[message.guild.id].roleCrLimits} \`__**
-`
-      )
-      .addField(
-        "Channel Delete Limit Info",
-        `
-**• | Count : __\`${config[message.guild.id].chaDelLimit} \`__**
-`
-      )
-      .addField(
-        "Channel Create Limit Info",
-        `
-**• | Count : __\`${config[message.guild.id].chaCrLimit} \`__**
-`
-      );
-
-    message.channel.send(blackjack);
-  }
-});
 
 var antibots = JSON.parse(fs.readFileSync("./antibots.json", "utf8"));
 let saveAbot = () => {
@@ -978,6 +927,65 @@ let saveAbot = () => {
     }
   );
 };
+
+
+client.on("message", message => {
+  if (message.content === prefix + "setting") {
+    if (cooldown.has(message.author.id)) {
+      return message.channel
+        .send(` | Please wait for 10 second`)
+        .then(m => {
+          m.delete({ timeout: cdtime * 600 });
+        });
+    }
+
+    cooldown.add(message.author.id);
+
+    setTimeout(() => {
+      cooldown.delete(message.author.id);
+    }, cdtime * 1000);
+    if (!message.member.hasPermission("ADMINISTRATOR"))
+      if (!message.channel.guild) return;
+    if (message.content < 1023) return;
+    const black = new Discord.MessageEmbed()
+      .setAuthor(client.user.username, client.user.avatarURL())
+      .setThumbnail(client.user.avatarURL()).setDescription(`AntiBan
+Enabled: 
+Maximum Ban : ${config[message.guild.id].banLimit}
+-
+AntiKick
+Enabled: 
+Maximum Kick : ${config[message.guild.id].kickLimits}
+-
+AntiChannelD
+Enabled: 
+Maximum Delete : ${config[message.guild.id].chaDelLimit}
+-
+AntiChannelC
+Enabled: 
+Maximum Create : ${config[message.guild.id].chaCrLimit}
+-
+AntiRoleD
+Enabled:
+ ${antiroleD[message.guild.id].onoff}
+Maximum Delete : ${config[message.guild.id].roleDelLimit}
+-
+AntiRoleC
+Enabled: 
+Maximum Create : ${config[message.guild.id].roleCrLimits}
+-
+AntiTime
+Enabled: 
+Maximum Time : ${config[message.guild.id].time}
+`);
+
+    message.channel.send(black);
+  }
+});
+
+
+
+
 client.on("message", message => {
   if (!message.guild) return;
   if (!antibots[message.guild.id])
