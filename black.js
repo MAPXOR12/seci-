@@ -1126,6 +1126,101 @@ client.on("message", message => {
   }
 });
 
+var wlcinv = require("./invite.json");
+function saveInviter() {
+    fs.writeFileSync("./invite.json", JSON.stringify(wlcinv, null, 4));
+}
+client.on('message', message => {
+           if (!message.channel.guild) return;
+    let room = message.content.split(' ').slice(1).join(" ")
+    let channel = message.guild.channels.cache.find(c => c.name === `${room}`) || message.mentions.channels.first()
+    if(message.content.startsWith(prefix + "setInvite")) {
+        if(!message.channel.guild) return;
+        if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
+if(!room) return message.channel.send('**Please Type The Name Channel Or Mention**')
+if(!channel) return message.channel.send('**Cant Find This Channel**')
+let embed = new Discord.MessageEmbed()
+.setAuthor(message.author.username,message.author.avatarURL())
+.setThumbnail(message.author.avatarURL())
+.setTitle('**✅Done Check The Log Code Has Been Setup**')
+.addField('Channel', `${room}`)
+.addField('Server', `${message.guild.name}`)
+.addField('Requested By', `${message.author}`)
+.setColor("RANDOM")
+.setFooter(`${client.user.username}`)
+.setTimestamp()
+message.channel.send(embed)
+wlcinv[message.guild.id] = {
+channel: channel.name,
+}
+saveInviter()
+}})
+ 
+client.on("message", message => {
+  if (message.content.startsWith(prefix + "toggleInviter")) {
+    if (!message.channel.guild) return message.reply("**This Command For Serverr**");
+    if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send(`${message.author}, Sorry You Need \`MANAGE_GUILD\` for use this command`);
+    if (!wlcinv[message.guild.id])
+      wlcinv[message.guild.id] = {
+        onoff: "Off"
+      };
+    if (wlcinv[message.guild.id].onoff === "off") return [
+            message.channel.send(`**The Inviter Is __ON__ !**`),
+      (wlcinv[message.guild.id].onoff = "on")
+    ];
+    if (wlcinv[message.guild.id].onoff === "on") return [
+      message.channel.send(`**The Inviter Is __ON__ !**`),
+      (wlcinv[message.guild.id].onoff = "off")
+    ];
+    saveInviter()
+  }
+});
+const invites = {};
+ 
+const wait = require('util').promisify(setTimeout);
+ 
+client.on('ready', () => {
+  wait(1000);
+ 
+  client.guilds.cache.forEach(g => {
+    g.fetchInvites().then(guildInvites => {
+      invites[g.id] = guildInvites;
+    });
+  });
+});
+ 
+client.on('guildMemberAdd', member => {
+    if (!wlcinv[member.guild.id])
+    wlcinv[member.guild.id] = {
+      onoff: "Off"
+    };
+  if (wlcinv[member.guild.id].onoff === "Off") return;
+  member.guild.fetchInvites().then(guildInvites => {
+    const ei = invites[member.guild.id];
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+    const inviter = client.users.cache.get(invite.inviter.id);
+    const channel = member.guild.channels.cache.find(c => c.name == wlcinv[member.guild.id].channel)
+    let memberavatar = member.user.avatarURL()
+        let embed = new Discord.MessageEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(memberavatar)
+        .setDescription(`
+Welcome To The Server **${member.guild.name}**
+ 
+Name Member: ${member}
+ 
+You Are The Member: ${member.guild.memberCount}
+ 
+Invited By: ${inviter.tag}
+ 
+        `)
+        .setFooter(`**${member.guild.name}**`)
+        .setTimestamp()
+        channel.send(embed);
+});
+   saveInviter()
+  }); 
+
 client.on('message', message => {
     if (message.content.startsWith(prefix + "se gif")) {
         var bj = "BLACK JACK"
