@@ -30,11 +30,7 @@ const imdb = require("imdb-api");
 const Enmap = require("enmap");
 const cooldown = new Set();
 const cdtime = 5;
-const prefix = "s!!"const MusicBot = require('music.bot'),settings = new MusicBot({
-   botPrefix: '+',
-   botClient: client,
-ytApiKey:  `AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8 `
- });
+  
 client.on('message', message => {
     if(message.content.startsWith(settings.prefix)) { 
         settings.onMessage(message);
