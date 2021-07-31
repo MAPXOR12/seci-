@@ -31,7 +31,7 @@ const Enmap = require("enmap");
 const cooldown = new Set();
 const cdtime = 5;
 const prefix = "s!!"const MusicBot = require('music.bot'),settings = new MusicBot({
-   botPrefix: 's!!',
+   botPrefix: '+',
    botClient: client,
 ytApiKey:  `AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8 `
  });
@@ -40,7 +40,7 @@ client.on('message', message => {
         settings.onMessage(message);
     };
 });
-client.login("ODYzNDA0ODA0NTQ1MzE0ODI3.YOmaYg.7hnmMyhm2CSZaYag8A8O8H2f4-c")
+client.login("Nzg0MzAzNzU2OTI1NDY4NzEz.X8nVyw.jQ-njAXT0llVEhkpvsxbsrupXyk")
 
 let channelc = JSON.parse(fs.readFileSync('./channelc.json' , 'utf8'));
 let channeld = JSON.parse(fs.readFileSync('./channeld.json' , 'utf8'));
