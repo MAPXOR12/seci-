@@ -47,7 +47,7 @@ client.on("ready", () => {
     console.log(client.guilds.cache.map(c => `${c.name} : ${c.me.hasPermission(8)} : ${c.memberCount}`));
   client.user.setActivity(`Type: ${PREFIX}help`, { type: "LISTENING"});
     client.user.setActivity(`Type: GuIdis ${client.guilds.cache.size},Users ${client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)},`,);
-  console.log(`Logined`);
+  console.log(`PLAYING`);
 });
 
 
