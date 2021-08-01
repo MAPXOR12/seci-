@@ -101,7 +101,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tChannelD on")) {
+            if(message.content.startsWith(prefix + "Anti channelD on")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         channeld[message.guild.id] = {
@@ -126,7 +126,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tChannelD off")) {
+            if(message.content.startsWith(prefix + "Anti channelD off")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         channeld[message.guild.id] = {
@@ -150,7 +150,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tban on")) {
+            if(message.content.startsWith(prefix + "Anti ban on")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' ); 
         antiban[message.guild.id] = {
@@ -175,7 +175,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tban off")) {
+            if(message.content.startsWith(prefix + "Anti ban off")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         antiban[message.guild.id] = {
@@ -199,7 +199,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tkick on")) {
+            if(message.content.startsWith(prefix + "Anti kick on")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' ); 
         antikick[message.guild.id] = {
@@ -224,7 +224,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tkick off")) {
+            if(message.content.startsWith(prefix + "Anti kick off")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         antikick[message.guild.id] = {
@@ -248,7 +248,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "troleD on")) {
+            if(message.content.startsWith(prefix + "Anti roleD on")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );     
         antiroleD[message.guild.id] = {
@@ -273,7 +273,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "troleD off")) {
+            if(message.content.startsWith(prefix + "Anti roleD off")) {
                 if(!message.channel.guild) return;
                          if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         antiroleD[message.guild.id] = {
@@ -297,7 +297,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "troleC on")) {
+            if(message.content.startsWith(prefix + "Anti roleC on")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );     
         antiroleD[message.guild.id] = {
@@ -322,7 +322,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "troleC off")) {
+            if(message.content.startsWith(prefix + "Anti roleC off")) {
                 if(!message.channel.guild) return;
                          if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         antiroleC[message.guild.id] = {
@@ -1036,72 +1036,69 @@ client.on("message", message => {
   }
 });
 
+
 client.on("message", async message => {
   if (message.content.startsWith(prefix + "help")) {
-    if (cooldown.has(message.author.id)) {
-      return message.channel
-        .send(`:stopwatch: | **Please wait for ${cdtime} second**`)
-        .then(m => {
-          m.delete({ timeout: cdtime * 600 });
-        });
-    }
-
-    cooldown.add(message.author.id);
-
-    setTimeout(() => {
-      cooldown.delete(message.author.id);
-    }, cdtime * 1000);
-    let help = new Discord.MessageEmbed()
-      .setColor("#FF0000")
-      .setAuthor(message.author.username, message.author.displayAvatarURL())
-      .setThumbnail(message.author.avatarURL())
-      .setTitle("☞" + " | Click Here To Add : " + `${client.user.username}`)
-      .setURL(
-        `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot`
-      ).setDescription(`${client.user.username}  Prefix is  [${prefix}]
     
-----------
-⚠️ | __Security Commands__ :
-${prefix}anti
-${prefix}toggles
-${prefix}settings
-----------
-⚙ | __Public Commands__:
-${prefix}help
-${prefix}support, ${prefix}invite
-${prefix}clear, ${prefix}botinfo
-${prefix}server, ${prefix}ping
-${prefix}user, ${prefix}listemojis
-${prefix}avatar, ${prefix}boosts
-${prefix}se gif/static <emoji>, ${prefix}date 
-${prefix}hightRole, ${prefix}my perms
-${prefix}topinvites, ${prefix}allbots
-${prefix}badge, ${prefix}roles
-----------
-〽 | __Moderation Commands__:
-${prefix}lock, ${prefix}unlock
-${prefix}ban, ${prefix}kick
-${prefix}unban[iduser/all]
-${prefix}mute, ${prefix}unmute
-${prefix}bans, ${prefix}settopic
-${prefix}nick, ${prefix}close
-${prefix}open, ${prefix}hide all
-${prefix}unhide all, ${prefix}rules
-${prefix}move, ${prefix}help move
-${prefix}say, ${prefix}embed
-${prefix}setLog, ${prefix}slowmode
-${prefix}tempmute, ${prefix}mvall
-${prefix}deafen, ${prefix}undeafen
-${prefix}vkick, ${prefix}vmute
-${prefix}unvmute, ${prefix}vban
-${prefix}unvban, ${prefix}roleadd
-${prefix}roleremove, ${prefix}roleinfo
-----------
-`);
+    let help = new Discord.MessageEmbed()
+      .setColor(`#b00c00`)
+      .setImage(`https://cdn.discordapp.com/attachments/784182278481772564/854688687807529020/New_Project_99AD184.gif`)
+      .setDescription(`
+**__ Help Commands __**
+
+
+
+ 🌍**»__ Public Commands __ **
+
+\`r/rps - r/vote\`
+\`r/uptime - r/ping\`
+\`r/about - r/weather\`
+\`r/listbots - r/roles\`
+\`r/userRole - r/support\`
+\`r/invite - r/listEmoji\`
+\`r/report - r/ninvites\` 
+\`r/perms - r/serverinfo\`
+\`r/userinfo - r/server avatar\`
+\`r/avatar - r/day\`
+\`r/covid all - r/covid\` : **[Country]**
+
+⚡**»__ Moderation __ **
+
+\`r/hide - r/show\`
+\`r/ban - r/unban \`
+\`r/move - r/embed\`
+\`r/kick - r/vkick\`
+\`r/mute - r/unmute\`
+\`r/lock - r/unlock\`
+\`r/clear - slowmode\`
+\`r/lockall - r/unlockall\`
+\`r/ENrules - r/KRrules - r/ARrules\`
+\`r/warn - r/warning - r/removewarn\`
+💦**»__ Anti on off__**
+
+\`r/Anti ban\` : **on / off**
+\`r/Anti kick\` : **on / off**
+\`r/Anti roleC\` : **on / off**
+\`r/Anti roleD\` : **on / off**
+\`r/Anti channelC\` : **on / off**
+\`r/Anti channelD\` : **on / off**
+
+🛡️**»__ Security __**
+
+\`r/anti bot\` : **[on-off]**
+\`r/anti ban\` : **[Number]**
+\`r/anti kick\` : **[Number]**
+\`r/anti roleC\` : **[Number]**
+\`r/anti roleD\` : **[Number]**
+\`r/anti channelC\` : **[Number]**
+\`r/anti channelD\` : **[Number]**
+\`r/punishment\`
+\`r/settings\`
+      
+      `);
     message.channel.send(help);
   }
 });
-
 
 
 client.on("message", message => {
