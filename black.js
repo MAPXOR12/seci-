@@ -46,8 +46,7 @@ client.on("ready", () => {
   console.log("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ");
     console.log(client.guilds.cache.map(c => `${c.name} : ${c.me.hasPermission(8)} : ${c.memberCount}`));
   client.user.setActivity(`${PREFIX}help`);
-   
-  console.log(`PLAYING`);
+  console.log(`Logined`);
 });
 
 
