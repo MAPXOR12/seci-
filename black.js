@@ -45,7 +45,7 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
   console.log("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ");
     console.log(client.guilds.cache.map(c => `${c.name} : ${c.me.hasPermission(8)} : ${c.memberCount}`));
-  client.user.setActivity(`Type: ${PREFIX}help`, );
+  client.user.setActivity(`${PREFIX}help`);
    
   console.log(`PLAYING`);
 });
