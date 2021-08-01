@@ -77,7 +77,7 @@ client.on('message', message => {
         
                 })
 client.on('message', message => {
-            if(message.content.startsWith(prefix + "tChannelC off")) {
+            if(message.content.startsWith(prefix + "Anti channelC off")) {
                 if(!message.channel.guild) return;
                                        if(message.member.id !== message.guild.ownerID) return message.channel.send('**Sorry But You Dont Have** `OWNERSHIP`' );
         channelc[message.guild.id] = {
